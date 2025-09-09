@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complaints</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #7660e7;
+    }
+    h2 {
+      color: #062d57;
+    }
+    .complaint-card {
+      background: white;
+      padding: 20px;
+      border-left: 6px solid #007BFF;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .status {
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+      font-size: 12px;
+      float: right;
+    }
+    .pending { background-color: red; }
+    .in-progress { background-color: orange; }
+    .resolved { background-color: green; }
+    .rejected { background-color: gray; }
+    .details {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Submitted Complaints</h2>
+  <div id="complaint-list"></div>
+
+  <script>
+    const complaints = [
+      {
+        RollNo: 1,
+        title: "Verbal insults and harassment",
+        date: "2025-08-28",
+        status: "Pending",
+        details: "Using offensive language, name-calling, or making threats"
+      },
+      {
+        RollNo: 2,
+        title: "Cyberbullying",
+        date: "2025-08-25",
+        status: "Resolved",
+        details: "Harassing or threatening someone online or on social media. This can include sharing private information or photos without consent"
+      },
+    ];
+
+    function getStatusClass(status) {
+      switch(status.toLowerCase()) {
+        case 'pending': return 'pending';
+        case 'resolved': return 'resolved';
+        case 'in progress': return 'in-progress';
+        case 'rejected': return 'rejected';
+        default: return '';
+      }
+    }
+
+    const container = document.getElementById('complaint-list');
+    complaints.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'complaint-card';
+      div.innerHTML = `
+        <strong>${c.title}</strong> <span class="status ${getStatusClass(c.status)}">${c.status}</span><br>
+        <small>Submitted on: ${c.date}</small>
+        <div class="details">${c.details}</div>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+
+</body>
+</html>
