@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Grievance Portal</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f8;
+}
+
+header {
+  background-color: #0d5db3;
+  color: rgb(255, 255, 255);
+  padding: 20px;
+  text-align: center;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  flex: 1 0 200px;
+  box-shadow: 0 2px 5px rgba(73, 31, 228, 0.1);
+  text-align: center;
+  font-weight: bold;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border: 1px solid #cccccc;
+    background-color: #348ae5;
+  padding: 10px;
+  text-align: center;
+}
+</style>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <section class="stats">
+    <div class="card">Total Complaints: <span Roll no="totalCount">0</span></div>
+    <div class="card">Pending: <span Roll no="pendingCount">0</span></div>
+    <div class="card">In Progress: <span Roll no="inProgressCount">0</span></div>
+    <div class="card">Resolved: <span Roll no="resolvedCount">0</span></div>
+  </section>
+
+  <section class="table-container">
+    <h2>Recent Complaints</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Roll No</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Date Submitted</th>
+        </tr>
+      </thead>
+      <tbody id="complaintTableBody">
+        <!-- Rows will be injected by JS -->
+      </tbody>
+    </table>
+  </section>
+<script src="script.js"></script>
+</body>
+</html>

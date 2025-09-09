@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Complaints</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #7660e7;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(93, 45, 225, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #0d5db3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>View Complaints</h2>
+ <table>
+      <thead>
+        <tr>
+          <th>Roll No</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody id="complaint-table-body">
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const complaints = [
+      {
+        RollNo: 1,
+        Category: "Verbal insults and harassment",
+        date: "2025-08-28",
+        details: "Using offensive language, name-calling, or making threats."
+      },
+      {
+        RollNo: 2,
+        Category: "Cyberbullying",
+        date: "2025-08-25",
+        details: "Harassing or threatening someone online or on social media. This can include sharing private information or photos without consent."
+      },
+    ];
+
+    const tbody = document.getElementById('complaint-table-body');
+
+    complaints.forEach((complaint) => {
+      const tr = document.createElement('tr');
+
+      tr.innerHTML = `
+        <td>${complaint.RollNo}</td>
+        <td>${complaint.Category}</td>
+        <td>${complaint.date}</td>
+        <td>${complaint.details}</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
