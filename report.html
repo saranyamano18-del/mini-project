@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Complaint Report - Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CDN for styling -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background-color: #7660e7;
+      padding-top: 40px;
+    }
+    h2 {
+       color: rgb(44, 4, 122);
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <h2> Complaint Report</h2>
+    <div class="mb-3 row">
+      <label for="statusFilter" class="col-sm-2 col-form-label">Filter by Status:</label>
+      <div class="col-sm-4">
+        <select id="statusFilter" class="form-select" onchange="filterComplaints()">
+          <option value="All">All</option>
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+      <div class="col-sm-6 text-end">
+        <button class="btn btn-success" onclick="downloadCSV()">Download Report (CSV)</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-striped" id="complaintTable">
+      <thead class="table-dark">
+        <tr>
+          <th>RollNo</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody id="complaintTableBody">
+        <!-- Populated dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const complaints = [
+      {
+        RollNo: 1,
+        Title: "Verbal insults and harassment",
+        Date: "2025-08-28",
+        Status: "Pending",
+        Details: "Using offensive language, name-calling, or making threats"
+      },
+      {
+        RollNo: 2,
+        Title: "Cyberbullying",
+        Date: "2025-08-25",
+        Status: "Resolved",
+        Details: "Harassing or threatening someone online or on social media. This can include sharing private information or photos without consent"
+      },
+      {
+        RollNo: 3,
+        Title: "Violation of Privacy",
+        Date: "2025-08-20",
+        Status: "In Progress",
+        Details: " A roommate who goes through a person's belongings or has guests over without permission"
+      },
+      {
+        RollNo: 4,
+        Title: "Unfaithfulness and Lying",
+        Date: "2025-08-21",
+        Status: "rejected",
+        Details: " Infidelity is a common source of conflict that leads to bitter fights and emotional distress"
+      }
+    ];
+    function loadComplaints(filteredStatus = "All") {
+      const tableBody = document.getElementById("complaintTableBody");
+      tableBody.innerHTML = "";
+
+      const filtered = complaints.filter(c => filteredStatus === "All" || c.status === filteredStatus);
+
+      filtered.forEach(complaint => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${complaint.RollNo}</td>
+          <td>${complaint.Category}</td>
+          <td>${complaint.Date}</td>
+          <td>${complaint.Status}</td>
+          <td>${complaint.Details}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function filterComplaints() {
+      const status = document.getElementById("statusFilter").value;
+      loadComplaints(status);
+    }
+
+    function downloadCSV() {
+      let csvContent = "Roll No,Title,Date,Status,Details\n";
+
+      const status = document.getElementById("statusFilter").value;
+      const filtered = complaints.filter(c => status === "All" || c.status === status);
+
+      filtered.forEach(complaint => {
+        const row = [
+          complaint.RollNo,
+          `"${complaint.Category}"`,
+          complaint.Date,
+          complaint.Status,
+          `"${complaint.Details}"`
+        ].join(",");
+        csvContent += row + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.setAttribute("href", URL.createObjectURL(blob));
+      link.setAttribute("download", "complaint_report.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    window.onload = () => {
+      loadComplaints();
+    };
+  </script>
+</body>
+</html>
